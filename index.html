@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html>
+
+<script src="../rtc/dist/rtc.min.js"></script>
+
 <body>
   <script type="text/javascript" async
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
@@ -18,16 +21,11 @@ src="https://www.youtube.com/embed/SNgNBsCI4EA">
 
 
 
-<p> test below. </p>
-  <h1>Realtime communication with WebRTC</h1>
-  <div id="videos">
-    <video id="localVideo" autoplay muted></video>
-    <video id="remoteVideo" autoplay></video>
-  </div>
+<p> test below... </p>
 
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-  <script src="js/main.js"></script>
+<div id="messages" contenteditable></div>
+<script src="rtc-text-chat.js"></script>
+
   
 
 </body>
