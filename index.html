@@ -20,21 +20,15 @@ src="https://www.youtube.com/embed/SNgNBsCI4EA">
 
 <p> test below. </p>
   <h1>Realtime communication with WebRTC</h1>
-
-  <video id="localVideo" autoplay playsinline></video>
-  <video id="remoteVideo" autoplay playsinline></video>
-
-
-  <div>
-    <button id="startButton">Start</button>
-    <button id="callButton">Call</button>
-    <button id="hangupButton">Hang Up</button>
+  <div id="videos">
+    <video id="localVideo" autoplay muted></video>
+    <video id="remoteVideo" autoplay></video>
   </div>
 
-
+  <script src="/socket.io/socket.io.js"></script>
   <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-
   <script src="js/main.js"></script>
+  
 
 </body>
 </html>
