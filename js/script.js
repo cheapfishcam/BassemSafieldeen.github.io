@@ -13,15 +13,16 @@ var database = firebase.database().ref();
 var yourVideo = document.getElementById("yourVideo");
 var friendsVideo = document.getElementById("friendsVideo");
 var otherfriendsVideo = document.getElementById("otherfriendsVideo");
-var testval = document.getElementById("id").value;
-console.log("test");
-function testing() {
-  console.log("working");
-}
+//var testval = document.getElementById("id").value;
+//console.log("test");
+function setID(ID){
+  console.log("success" + ID);
+  yourId = ID;
 
-var yourId = Math.floor(Math.random()*1000000000);
-var flag1 = 1;
-var flag2 = 2;
+
+}
+//var flag1 = 1;
+//var flag2 = 2;
 //var yourId = 1;
 //var friendsId = 2;
 //var otherfriendsId = 3;
@@ -29,45 +30,54 @@ var flag2 = 2;
 var servers = {'iceServers': [{'urls': 'stun:stun.services.mozilla.com'}, {'urls': 'stun:stun.l.google.com:19302'}, {'urls': 'turn:numb.viagenie.ca','credential': '13111994','username': 'bassemsafieldeen@gmail.com'}]};
 var pc1 = new RTCPeerConnection(servers);
 var pc2 = new RTCPeerConnection(servers);
-pc1.onicecandidate = (event => event.candidate?sendMessage(yourId, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
+pc1.onicecandidate = (event => event.candidate?sendMessage(yourId, (yourId+1)%3, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
 pc1.onaddstream = (event => friendsVideo.srcObject = event.stream);
-pc2.onicecandidate = (event => event.candidate?sendMessage(yourId, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
+pc2.onicecandidate = (event => event.candidate?sendMessage(yourId,(yourId+2)%3, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
 pc2.onaddstream = (event => otherfriendsVideo.srcObject = event.stream);
 
-function sendMessage(senderId, data) {
-    var msg = database.push({ sender: senderId, message: data });
+function sendMessage(senderId, targetId, data) {
+    var msg = database.push({ sender: senderId, target: targetId, message: data });
     msg.remove();
 }
 
 function readMessage(data) {
     var msg = JSON.parse(data.val().message);
     var sender = data.val().sender;
-    if (sender != yourId && flag1 == 1 || sender == flag1) {
-        flag1 = sender;
-        //console.log("In first if")
-        if (msg.ice != undefined)
+    var target = data.val().target;
+    if (target==yourId && sender==(yourId+1)%3) {
+        console.log("In first if");
+        if (msg.ice != undefined){
+            console.log("In first first sub if");
             pc1.addIceCandidate(new RTCIceCandidate(msg.ice));
-        else if (msg.sdp.type == "offer")
+        }
+        else if (msg.sdp.type == "offer"){
+            console.log("In first second sub if");
             pc1.setRemoteDescription(new RTCSessionDescription(msg.sdp))
               .then(() => pc1.createAnswer())
               .then(answer => pc1.setLocalDescription(answer))
-              .then(() => sendMessage(yourId, JSON.stringify({'sdp': pc1.localDescription})));
-        else if (msg.sdp.type == "answer")
+              .then(() => sendMessage(yourId, (yourId+1)%3, JSON.stringify({'sdp': pc1.localDescription})));
+        }
+        else if (msg.sdp.type == "answer"){
+            console.log("In first third sub if");
             pc1.setRemoteDescription(new RTCSessionDescription(msg.sdp));
+        }
     }
-    if (sender != yourId && flag2 == 2 && sender != flag1 || sender == flag2) {
-        flag2 = sender;
+
+
+    if (target==yourId && sender==(yourId+2)%3) {
+      console.log("In second if");
         if (msg.ice != undefined)
             pc2.addIceCandidate(new RTCIceCandidate(msg.ice));
         else if (msg.sdp.type == "offer")
             pc2.setRemoteDescription(new RTCSessionDescription(msg.sdp))
               .then(() => pc2.createAnswer())
               .then(answer => pc2.setLocalDescription(answer))
-              .then(() => sendMessage(yourId, JSON.stringify({'sdp': pc2.localDescription})));
+              .then(() => sendMessage(yourId,(yourId+2)%3, JSON.stringify({'sdp': pc2.localDescription})));
         else if (msg.sdp.type == "answer")
             pc2.setRemoteDescription(new RTCSessionDescription(msg.sdp));
     }
 };
+
 
 database.on('child_added', readMessage);
 
@@ -81,11 +91,11 @@ function showMyFace() {
 function showFriendsFace() {
   pc1.createOffer()
     .then(offer => pc1.setLocalDescription(offer) )
-    .then(() => sendMessage(yourId, JSON.stringify({'sdp': pc1.localDescription})) );
+    .then(() => sendMessage(yourId,(yourId+1)%3, JSON.stringify({'sdp': pc1.localDescription})) );
 }
 
 function showOtherFriendsFace() {
   pc2.createOffer()
     .then(offer => pc2.setLocalDescription(offer) )
-    .then(() => sendMessage(yourId, JSON.stringify({'sdp': pc2.localDescription})) );
+    .then(() => sendMessage(yourId,(yourId+2)%3, JSON.stringify({'sdp': pc2.localDescription})) );
 }
