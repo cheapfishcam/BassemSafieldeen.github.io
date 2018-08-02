@@ -57,110 +57,110 @@ function readMessage(data) {
     var sender = data.val().sender;
     var target = data.val().target;
     if (target==yourId && target==0 && sender==1) {
-        console.log("In first if");
+        console.log("01");
         if (msg.ice != undefined){
-            console.log("In first first sub if");
+            console.log("01a");
             pc1.addIceCandidate(new RTCIceCandidate(msg.ice));
         }
         else if (msg.sdp.type == "offer"){
-            console.log("In first second sub if");
+            console.log("01b");
             pc1.setRemoteDescription(new RTCSessionDescription(msg.sdp))
               .then(() => pc1.createAnswer())
               .then(answer => pc1.setLocalDescription(answer))
               .then(() => sendMessage(yourId, sender, JSON.stringify({'sdp': pc1.localDescription})));
         }
         else if (msg.sdp.type == "answer"){
-            console.log("In first third sub if");
+            console.log("01c");
             pc1.setRemoteDescription(new RTCSessionDescription(msg.sdp));
         }
     }
     if (target==yourId && target==0 && sender==2) {
-        console.log("In first if");
+        console.log("02");
         if (msg.ice != undefined){
-            console.log("In first first sub if");
+            console.log("02a");
             pc2.addIceCandidate(new RTCIceCandidate(msg.ice));
         }
         else if (msg.sdp.type == "offer"){
-            console.log("In first second sub if");
+            console.log("02b");
             pc2.setRemoteDescription(new RTCSessionDescription(msg.sdp))
               .then(() => pc2.createAnswer())
               .then(answer => pc2.setLocalDescription(answer))
               .then(() => sendMessage(yourId, sender, JSON.stringify({'sdp': pc2.localDescription})));
         }
         else if (msg.sdp.type == "answer"){
-            console.log("In first third sub if");
+            console.log("02c");
             pc2.setRemoteDescription(new RTCSessionDescription(msg.sdp));
         }
     }
     if (target==yourId && target==1 && sender==2) {
-        console.log("In first if");
+        console.log("12");
         if (msg.ice != undefined){
-            console.log("In first first sub if");
+            console.log("12a");
             pc1.addIceCandidate(new RTCIceCandidate(msg.ice));
         }
         else if (msg.sdp.type == "offer"){
-            console.log("In first second sub if");
+            console.log("12b");
             pc1.setRemoteDescription(new RTCSessionDescription(msg.sdp))
               .then(() => pc1.createAnswer())
               .then(answer => pc1.setLocalDescription(answer))
               .then(() => sendMessage(yourId, sender, JSON.stringify({'sdp': pc1.localDescription})));
         }
         else if (msg.sdp.type == "answer"){
-            console.log("In first third sub if");
+            console.log("12c");
             pc1.setRemoteDescription(new RTCSessionDescription(msg.sdp));
         }
     }
     if (target==yourId && target==1 && sender==0) {
-        console.log("In first if");
+        console.log("10");
         if (msg.ice != undefined){
-            console.log("In first first sub if");
+            console.log("10a");
             pc2.addIceCandidate(new RTCIceCandidate(msg.ice));
         }
         else if (msg.sdp.type == "offer"){
-            console.log("In first second sub if");
+            console.log("10b");
             pc2.setRemoteDescription(new RTCSessionDescription(msg.sdp))
               .then(() => pc2.createAnswer())
               .then(answer => pc2.setLocalDescription(answer))
               .then(() => sendMessage(yourId, sender, JSON.stringify({'sdp': pc2.localDescription})));
         }
         else if (msg.sdp.type == "answer"){
-            console.log("In first third sub if");
+            console.log("10c");
             pc2.setRemoteDescription(new RTCSessionDescription(msg.sdp));
         }
     }
     if (target==yourId && target==2 && sender==0) {
-        console.log("In first if");
+        console.log("20");
         if (msg.ice != undefined){
-            console.log("In first first sub if");
+            console.log("20a");
             pc1.addIceCandidate(new RTCIceCandidate(msg.ice));
         }
         else if (msg.sdp.type == "offer"){
-            console.log("In first second sub if");
+            console.log("20b");
             pc1.setRemoteDescription(new RTCSessionDescription(msg.sdp))
               .then(() => pc1.createAnswer())
               .then(answer => pc1.setLocalDescription(answer))
               .then(() => sendMessage(yourId, sender, JSON.stringify({'sdp': pc1.localDescription})));
         }
         else if (msg.sdp.type == "answer"){
-            console.log("In first third sub if");
+            console.log("20c");
             pc1.setRemoteDescription(new RTCSessionDescription(msg.sdp));
         }
     }
     if (target==yourId && target==2 && sender==1) {
-        console.log("In first if");
+        console.log("21");
         if (msg.ice != undefined){
-            console.log("In first first sub if");
+            console.log("21a");
             pc2.addIceCandidate(new RTCIceCandidate(msg.ice));
         }
         else if (msg.sdp.type == "offer"){
-            console.log("In first second sub if");
+            console.log("21b");
             pc2.setRemoteDescription(new RTCSessionDescription(msg.sdp))
               .then(() => pc2.createAnswer())
               .then(answer => pc2.setLocalDescription(answer))
               .then(() => sendMessage(yourId, sender, JSON.stringify({'sdp': pc2.localDescription})));
         }
         else if (msg.sdp.type == "answer"){
-            console.log("In first third sub if");
+            console.log("21c");
             pc2.setRemoteDescription(new RTCSessionDescription(msg.sdp));
         }
     }
