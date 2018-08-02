@@ -16,7 +16,7 @@ var otherfriendsVideo = document.getElementById("otherfriendsVideo");
 var testval = document.getElementById("id").value;
 console.log("test");
 function testing() {
-  console.log(testval);
+  console.log("working");
 }
 
 var yourId = Math.floor(Math.random()*1000000000);
