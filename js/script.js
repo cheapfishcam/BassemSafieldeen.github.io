@@ -37,6 +37,9 @@ pc1.onicecandidate = (event => event.candidate?sendMessage(yourId, 2, JSON.strin
 if (yourId==2)
 pc1.onicecandidate = (event => event.candidate?sendMessage(yourId, 3, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
 
+pc1.onaddstream = (event => friendsVideo.srcObject = event.stream);
+
+
 if (yourId==0)
 pc2.onicecandidate = (event => event.candidate?sendMessage(yourId, 2, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
 if (yourId==1)
@@ -44,7 +47,7 @@ pc2.onicecandidate = (event => event.candidate?sendMessage(yourId, 0, JSON.strin
 if (yourId==2)
 pc2.onicecandidate = (event => event.candidate?sendMessage(yourId, 1, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
 
-pc1.onaddstream = (event => friendsVideo.srcObject = event.stream);
+
 pc2.onaddstream = (event => otherfriendsVideo.srcObject = event.stream);
 
 function sendMessage(senderId, targetId, data) {
