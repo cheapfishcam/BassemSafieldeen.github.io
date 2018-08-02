@@ -13,13 +13,12 @@ var database = firebase.database().ref();
 var yourVideo = document.getElementById("yourVideo");
 var friendsVideo = document.getElementById("friendsVideo");
 var otherfriendsVideo = document.getElementById("otherfriendsVideo");
+var yourId = 1000;
 //var testval = document.getElementById("id").value;
 //console.log("test");
 function setID(ID){
   console.log("success" + ID);
   yourId = ID;
-
-
 }
 //var flag1 = 1;
 //var flag2 = 2;
