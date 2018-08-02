@@ -15,7 +15,10 @@ var friendsVideo = document.getElementById("friendsVideo");
 var otherfriendsVideo = document.getElementById("otherfriendsVideo");
 var testval = document.getElementById("id").value;
 console.log("test");
-console.log(testval);
+function testing() {
+  console.log(testval);
+}
+
 var yourId = Math.floor(Math.random()*1000000000);
 var flag1 = 1;
 var flag2 = 2;
