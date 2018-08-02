@@ -38,6 +38,7 @@ function readMessage(data) {
     var sender = data.val().sender;
     if (sender != yourId && flag1 == 1 || sender == flag1) {
         flag1 = sender;
+        console.log("In first if")
         if (msg.ice != undefined)
             pc1.addIceCandidate(new RTCIceCandidate(msg.ice));
         else if (msg.sdp.type == "offer")
