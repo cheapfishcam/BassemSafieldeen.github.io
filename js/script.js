@@ -13,6 +13,8 @@ var database = firebase.database().ref();
 var yourVideo = document.getElementById("yourVideo");
 var friendsVideo = document.getElementById("friendsVideo");
 var otherfriendsVideo = document.getElementById("otherfriendsVideo");
+//var input = document.getElementById("input_id").value;
+console.log("test");
 var yourId = Math.floor(Math.random()*1000000000);
 var flag1 = 1;
 var flag2 = 2;
@@ -38,7 +40,7 @@ function readMessage(data) {
     var sender = data.val().sender;
     if (sender != yourId && flag1 == 1 || sender == flag1) {
         flag1 = sender;
-        console.log("In first if")
+        //console.log("In first if")
         if (msg.ice != undefined)
             pc1.addIceCandidate(new RTCIceCandidate(msg.ice));
         else if (msg.sdp.type == "offer")
