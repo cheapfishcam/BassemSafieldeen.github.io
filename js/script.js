@@ -33,14 +33,14 @@ var pc2 = new RTCPeerConnection(servers);
 if (yourId==0)
 pc1.onicecandidate = (event => event.candidate?sendMessage(yourId, 1, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
 if (yourId==1)
-pc1.onicecandidate = (event => event.candidate?sendMessage(yourId, 2, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
-if (yourId==2)
-pc1.onicecandidate = (event => event.candidate?sendMessage(yourId, 3, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
+pc1.onicecandidate = (event => event.candidate?sendMessage(yourId, 0, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );     //0 should be 2
+/*if (yourId==2)
+pc1.onicecandidate = (event => event.candidate?sendMessage(yourId, 3, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );*/
 
 pc1.onaddstream = (event => friendsVideo.srcObject = event.stream);
 
 
-if (yourId==0)
+/*if (yourId==0)
 pc2.onicecandidate = (event => event.candidate?sendMessage(yourId, 2, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
 if (yourId==1)
 pc2.onicecandidate = (event => event.candidate?sendMessage(yourId, 0, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
@@ -48,7 +48,7 @@ if (yourId==2)
 pc2.onicecandidate = (event => event.candidate?sendMessage(yourId, 1, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
 
 
-pc2.onaddstream = (event => otherfriendsVideo.srcObject = event.stream);
+pc2.onaddstream = (event => otherfriendsVideo.srcObject = event.stream);*/
 
 function sendMessage(senderId, targetId, data) {
     var msg = database.push({ sender: senderId, target: targetId, message: data });
@@ -77,7 +77,7 @@ function readMessage(data) {
             pc1.setRemoteDescription(new RTCSessionDescription(msg.sdp));
         }
     }
-    if (target==yourId && target==0 && sender==2) {
+    /*if (target==yourId && target==0 && sender==2) {
         console.log("02");
         if (msg.ice != undefined){
             console.log("02a");
@@ -112,7 +112,7 @@ function readMessage(data) {
             console.log("12c");
             pc1.setRemoteDescription(new RTCSessionDescription(msg.sdp));
         }
-    }
+    }*/
     if (target==yourId && target==1 && sender==0) {
         console.log("10");
         if (msg.ice != undefined){
@@ -131,7 +131,7 @@ function readMessage(data) {
             pc2.setRemoteDescription(new RTCSessionDescription(msg.sdp));
         }
     }
-    if (target==yourId && target==2 && sender==0) {
+    /*if (target==yourId && target==2 && sender==0) {
         console.log("20");
         if (msg.ice != undefined){
             console.log("20a");
@@ -166,7 +166,7 @@ function readMessage(data) {
             console.log("21c");
             pc2.setRemoteDescription(new RTCSessionDescription(msg.sdp));
         }
-    }
+    }*/
 };
 
 
@@ -187,24 +187,24 @@ function showFriendsFace() {
   if(yourId==1)
   pc1.createOffer()
     .then(offer => pc1.setLocalDescription(offer) )
-    .then(() => sendMessage(yourId,2, JSON.stringify({'sdp': pc1.localDescription})) );
-  if(yourId==2)
+    .then(() => sendMessage(yourId,0, JSON.stringify({'sdp': pc1.localDescription})) );     //0 should be 2
+  /*if(yourId==2)
     pc1.createOffer()
       .then(offer => pc1.setLocalDescription(offer) )
-      .then(() => sendMessage(yourId,0, JSON.stringify({'sdp': pc1.localDescription})) );
+      .then(() => sendMessage(yourId,0, JSON.stringify({'sdp': pc1.localDescription})) );*/
 }
 
-function showOtherFriendsFace() {
-  if (yourId==0)
-  pc2.createOffer()
-    .then(offer => pc2.setLocalDescription(offer) )
-    .then(() => sendMessage(yourId,2, JSON.stringify({'sdp': pc2.localDescription})) );
-  if(yourId==1)
-  pc2.createOffer()
-    .then(offer => pc2.setLocalDescription(offer) )
-    .then(() => sendMessage(yourId,0, JSON.stringify({'sdp': pc2.localDescription})) );
-  if(yourId==2)
-    pc2.createOffer()
-      .then(offer => pc2.setLocalDescription(offer) )
-      .then(() => sendMessage(yourId,1, JSON.stringify({'sdp': pc2.localDescription})) );
-}
+//function showOtherFriendsFace() {
+  //if (yourId==0)
+  //pc2.createOffer()
+    //.then(offer => pc2.setLocalDescription(offer) )
+    //.then(() => sendMessage(yourId,2, JSON.stringify({'sdp': pc2.localDescription})) );
+  //if(yourId==1)
+  //pc2.createOffer()
+    //.then(offer => pc2.setLocalDescription(offer) )
+    //.then(() => sendMessage(yourId,0, JSON.stringify({'sdp': pc2.localDescription})) );
+  //if(yourId==2)
+    //pc2.createOffer()
+      //.then(offer => pc2.setLocalDescription(offer) )
+      //.then(() => sendMessage(yourId,1, JSON.stringify({'sdp': pc2.localDescription})) );
+//}
