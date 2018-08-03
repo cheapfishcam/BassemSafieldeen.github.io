@@ -191,7 +191,7 @@ function showFriendsFace() {
   if(yourId==1)
   pc1.createOffer()
     .then(offer => pc1.setLocalDescription(offer) )
-    .then(() => sendMessage(yourId,2, JSON.stringify({'sdp': pc1.localDescription})) );*/
+    .then(() => sendMessage(yourId,2, JSON.stringify({'sdp': pc1.localDescription})) );
   if(yourId==2)
     pc1.createOffer()
       .then(offer => pc1.setLocalDescription(offer) )
