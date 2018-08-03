@@ -173,7 +173,6 @@ function readMessage(data) {
     }
 };
 
-
 database.on('child_added', readMessage);
 
 function showMyFace() {
