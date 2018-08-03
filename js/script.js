@@ -32,7 +32,7 @@ pc1.onicecandidate = (event => event.candidate?sendMessage(yourId, 1, JSON.strin
 //if (yourId==1)
 //pc1.onicecandidate = (event => event.candidate?sendMessage(yourId, 2, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
 if (yourId==2)
-pc1.onicecandidate = (event => event.candidate?sendMessage(yourId, 0, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );*/
+pc1.onicecandidate = (event => event.candidate?sendMessage(yourId, 0, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
 
 pc1.onaddstream = (event => friendsVideo.srcObject = event.stream);
 
