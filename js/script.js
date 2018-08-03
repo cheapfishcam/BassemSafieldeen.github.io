@@ -48,9 +48,9 @@ pc2.onicecandidate = (event => event.candidate?sendMessage(yourId, 1, JSON.strin
 pc2.onaddstream = (event => otherfriendsVideo.srcObject = event.stream);*/
 
 
-pc1.onicecandidate = (event => event.candidate?sendMessage(yourId, 1, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
+pc1.onicecandidate = (event => event.candidate?sendMessage(yourId, sender, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
 pc1.onaddstream = (event => friendsVideo.srcObject = event.stream);
-pc2.onicecandidate = (event => event.candidate?sendMessage(yourId, 2, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
+pc2.onicecandidate = (event => event.candidate?sendMessage(yourId, sender, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
 pc2.onaddstream = (event => otherfriendsVideo.srcObject = event.stream);
 
 
