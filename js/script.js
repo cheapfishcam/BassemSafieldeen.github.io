@@ -46,6 +46,8 @@ pc2.onicecandidate = (event => event.candidate?sendMessage(yourId, 1, JSON.strin
 
 pc2.onaddstream = (event => otherfriendsVideo.srcObject = event.stream);*/
 
+
+//0 creates offer . 0 sends ice (sender here is not defined because it first gets defined when readmessage is called.) -> 2 receives offer, creates answer, sends ice.
 pc2.onicecandidate = (event => event.candidate?sendMessage(yourId, sender, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
 pc2.onaddstream = (event => otherfriendsVideo.srcObject = event.stream);
 pc1.onicecandidate = (event => event.candidate?sendMessage(yourId, sender, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
@@ -60,7 +62,7 @@ function sendMessage(senderId, targetId, data) {
 
 function readMessage(data) {
     var msg = JSON.parse(data.val().message);
-    if(msg.ice == undefined) var sender = data.val().sender;
+    var sender = data.val().sender;
     var target = data.val().target;
     if (target==yourId && target==0 && sender==1) {
         console.log("01");
@@ -95,7 +97,7 @@ function readMessage(data) {
         }
         else if (msg.sdp.type == "answer"){
             console.log("02c");
-            pc1.setRemoteDescription(new RTCSessionDescription(msg.sdp));
+            pc2.setRemoteDescription(new RTCSessionDescription(msg.sdp));
         }
     }
     if (target==yourId && target==1 && sender==2) {
@@ -182,6 +184,7 @@ function showMyFace() {
 }
 
 function showFriendsFace() {
+  sender = yourId;
   if (yourId==0)
   pc1.createOffer()
     .then(offer => pc1.setLocalDescription(offer) )
@@ -197,6 +200,7 @@ function showFriendsFace() {
 }
 
 function showOtherFriendsFace() {
+  sender = yourId;
   if (yourId==0)
     pc2.createOffer()
        .then(offer => pc2.setLocalDescription(offer) )
