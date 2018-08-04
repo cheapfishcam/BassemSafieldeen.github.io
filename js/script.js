@@ -86,6 +86,7 @@ function sendMessage(senderId, targetId, data) {
     msg.remove();
 }
 
+
 function readMessage(data) {
     var msg = JSON.parse(data.val().message);
     sender = data.val().sender;
