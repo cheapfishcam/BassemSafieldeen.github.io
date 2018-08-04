@@ -239,6 +239,8 @@ function showFriendsFace() {
   }
 }
 
+
+
 function showOtherFriendsFace() {
   sender = yourId;
   initialtarget = (yourId+2)%3;   //defining target for the first time
