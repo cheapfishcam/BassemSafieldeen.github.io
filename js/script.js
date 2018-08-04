@@ -12,7 +12,7 @@ var config = {
 var database = firebase.database().ref();
 var yourVideo = document.getElementById("yourVideo");
 var friendsVideo = document.getElementById("friendsVideo");
-//var otherfriendsVideo = document.getElementById("otherfriendsVideo");
+var otherfriendsVideo = document.getElementById("otherfriendsVideo");
 var yourId = 1000; //
 
 
