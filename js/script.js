@@ -232,7 +232,7 @@ function showFriendsFace() {
          .then(() => sendMessage(yourId,initialtarget, JSON.stringify({'sdp': pc12.localDescription})) );
   }
   if(yourId==2) {
-    initiatorpc01 = yourId;
+    initiatorpc02 = yourId;
     pc02.createOffer()
         .then(offer => pc02.setLocalDescription(offer) )
         .then(() => sendMessage(yourId,initialtarget, JSON.stringify({'sdp': pc02.localDescription})) );
