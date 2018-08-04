@@ -62,7 +62,7 @@ function sendMessage(senderId, targetId, data) {
 
 function readMessage(data) {
     var msg = JSON.parse(data.val().message);
-    var sender = data.val().sender;
+    sender = data.val().sender;
     var target = data.val().target;
     if (target==yourId && target==0 && sender==1) {
         console.log("01");
@@ -184,7 +184,7 @@ function showMyFace() {
 }
 
 function showFriendsFace() {
-  sender = yourId;
+  var sender = yourId;
   if (yourId==0)
   pc1.createOffer()
     .then(offer => pc1.setLocalDescription(offer) )
@@ -200,7 +200,7 @@ function showFriendsFace() {
 }
 
 function showOtherFriendsFace() {
-  sender = yourId;
+  var sender = yourId;
   if (yourId==0)
     pc2.createOffer()
        .then(offer => pc2.setLocalDescription(offer) )
