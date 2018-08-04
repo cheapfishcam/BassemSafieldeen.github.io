@@ -59,9 +59,12 @@ pc01.onicecandidate = (event => initiatorpc01==yourId?event.candidate?sendMessag
 pc02.onicecandidate = (event => initiatorpc02==yourId?event.candidate?sendMessage(yourId, initialtarget, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice"):event.candidate?sendMessage(yourId, target, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
 pc12.onicecandidate = (event => initiatorpc12==yourId?event.candidate?sendMessage(yourId, initialtarget, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice"):event.candidate?sendMessage(yourId, target, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
 
+pc01.onaddstream = (event => yourId==0?friendsVideo.srcObject = event.stream:yourId==1?otherfriendsVideo.srcObject = event.stream);
+pc02.onaddstream = (event => yourId==2?friendsVideo.srcObject = event.stream:yourId==0?otherfriendsVideo.srcObject = event.stream);
+pc12.onaddstream = (event => yourId==1?friendsVideo.srcObject = event.stream:yourId==2?otherfriendsVideo.srcObject = event.stream);
 
 //block to use later
-if (yourId == 0)
+/*if (yourId == 0)
 pc01.onaddstream = (event => friendsVideo.srcObject = event.stream);
 if (yourId == 1)
 pc01.onaddstream = (event => otherfriendsVideo.srcObject = event.stream);
@@ -73,6 +76,7 @@ if (yourId == 1)
 pc12.onaddstream = (event => friendsVideo.srcObject = event.stream);
 if (yourId == 2)
 pc12.onaddstream = (event => otherfriendsVideo.srcObject = event.stream);
+*/
 
 
 
