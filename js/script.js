@@ -52,6 +52,7 @@ pc2.onicecandidate = (event => event.candidate?sendMessage(yourId, 1, JSON.strin
 pc2.onaddstream = (event => otherfriendsVideo.srcObject = event.stream);*/
 
 
+
 //0 creates offer . 0 sends ice (sender here is not defined because it first gets defined when readmessage is called.) -> 2 receives offer, creates answer, sends ice.
 if (initiatorpc2 == yourId) {
 pc2.onicecandidate = (event => event.candidate?sendMessage(yourId, initialtarget, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
