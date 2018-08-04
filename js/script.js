@@ -16,6 +16,8 @@ var otherfriendsVideo = document.getElementById("otherfriendsVideo");
 var yourId = 10000; //
 var sender;
 var target;
+var initiatorpc1 = 10000;
+var initiatorpc2 = 10000;
 
 function setID(ID){
   console.log("success " + ID);
@@ -142,7 +144,7 @@ function readMessage(data) {
             pc2.setRemoteDescription(new RTCSessionDescription(msg.sdp));
         }
     }
-    if (target==yourId && target==2 && sender==0) {   //pc2 should be pc1
+    if (target==yourId && target==2 && sender==0) {
         console.log("20");
         if (msg.ice != undefined){
             console.log("20a");
@@ -192,6 +194,7 @@ function showMyFace() {
 }
 
 function showFriendsFace() {
+  initiatorpc1 = yourId;
   sender = yourId;
   target = (yourId+1)%3;   //defining target for the first time
   if (yourId==0)
@@ -208,7 +211,9 @@ function showFriendsFace() {
       .then(() => sendMessage(yourId,target, JSON.stringify({'sdp': pc1.localDescription})) );
 }
 
+
 function showOtherFriendsFace() {
+  initiatorpc2 = yourId;
   sender = yourId;
   target = (yourId+2)%3;   //defining target for the first time
   if (yourId==0)
