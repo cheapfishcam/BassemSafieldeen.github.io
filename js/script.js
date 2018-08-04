@@ -90,7 +90,7 @@ function readMessage(data) {
     var msg = JSON.parse(data.val().message);
     sender = data.val().sender;
     target = data.val().target;
-    if (target==yourId && target==0 && sender==1) {
+    if (target==yourId && target==0 && sender==1  ||  target==yourId && target==1 && sender==0) {
         console.log("01");
         if (msg.ice != undefined){
             console.log("01a");
@@ -109,7 +109,7 @@ function readMessage(data) {
             pc01.setRemoteDescription(new RTCSessionDescription(msg.sdp));
         }
     }
-    if (target==yourId && target==0 && sender==2) {
+    if (target==yourId && target==0 && sender==2  ||  target==yourId && target==2 && sender==0) {
         console.log("02");
         if (msg.ice != undefined){
             console.log("02a");
@@ -128,7 +128,7 @@ function readMessage(data) {
             pc02.setRemoteDescription(new RTCSessionDescription(msg.sdp));
         }
     }
-    if (target==yourId && target==1 && sender==2) {
+    if (target==yourId && target==1 && sender==2  ||  target==yourId && target==2 && sender==1) {
         console.log("12");
         if (msg.ice != undefined){
             console.log("12a");
@@ -147,7 +147,7 @@ function readMessage(data) {
             pc12.setRemoteDescription(new RTCSessionDescription(msg.sdp));
         }
     }
-    if (target==yourId && target==1 && sender==0) {
+    /*if (target==yourId && target==1 && sender==0) {
         console.log("10");
         if (msg.ice != undefined){
             console.log("10a");
@@ -166,6 +166,7 @@ function readMessage(data) {
             pc01.setRemoteDescription(new RTCSessionDescription(msg.sdp));
         }
     }
+
     if (target==yourId && target==2 && sender==0) {
         console.log("20");
         if (msg.ice != undefined){
@@ -203,7 +204,7 @@ function readMessage(data) {
             console.log("21c");
             pc12.setRemoteDescription(new RTCSessionDescription(msg.sdp));
         }
-    }
+    }*/
 };
 
 database.on('child_added', readMessage);
