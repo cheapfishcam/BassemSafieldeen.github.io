@@ -134,22 +134,22 @@ function readMessage(data) {
             pc2.setRemoteDescription(new RTCSessionDescription(msg.sdp));
         }
     }
-    if (target==yourId && target==2 && sender==0) {
+    if (target==yourId && target==2 && sender==0) {   //pc2 should be pc1
         console.log("20");
         if (msg.ice != undefined){
             console.log("20a");
-            pc1.addIceCandidate(new RTCIceCandidate(msg.ice));
+            pc2.addIceCandidate(new RTCIceCandidate(msg.ice));
         }
         else if (msg.sdp.type == "offer"){
             console.log("20b");
-            pc1.setRemoteDescription(new RTCSessionDescription(msg.sdp))
-              .then(() => pc1.createAnswer())
-              .then(answer => pc1.setLocalDescription(answer))
-              .then(() => sendMessage(yourId, sender, JSON.stringify({'sdp': pc1.localDescription})));
+            pc2.setRemoteDescription(new RTCSessionDescription(msg.sdp))
+              .then(() => pc2.createAnswer())
+              .then(answer => pc2.setLocalDescription(answer))
+              .then(() => sendMessage(yourId, sender, JSON.stringify({'sdp': pc2.localDescription})));
         }
         else if (msg.sdp.type == "answer"){
             console.log("20c");
-            pc1.setRemoteDescription(new RTCSessionDescription(msg.sdp));
+            pc2.setRemoteDescription(new RTCSessionDescription(msg.sdp));
         }
     }
     if (target==yourId && target==2 && sender==1) {
