@@ -48,9 +48,9 @@ pc2.onaddstream = (event => otherfriendsVideo.srcObject = event.stream);*/
 
 
 //0 creates offer . 0 sends ice (sender here is not defined because it first gets defined when readmessage is called.) -> 2 receives offer, creates answer, sends ice.
-pc2.onicecandidate = (event => event.candidate?sendMessage(yourId, sender, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
+pc2.onicecandidate = (event => event.candidate?sendMessage(yourId, target, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
 pc2.onaddstream = (event => otherfriendsVideo.srcObject = event.stream);
-pc1.onicecandidate = (event => event.candidate?sendMessage(yourId, sender, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
+pc1.onicecandidate = (event => event.candidate?sendMessage(yourId, target, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
 pc1.onaddstream = (event => friendsVideo.srcObject = event.stream);
 
 
@@ -72,10 +72,11 @@ function readMessage(data) {
         }
         else if (msg.sdp.type == "offer"){
             console.log("01b");
+            target = sender;
             pc1.setRemoteDescription(new RTCSessionDescription(msg.sdp))
               .then(() => pc1.createAnswer())
               .then(answer => pc1.setLocalDescription(answer))
-              .then(() => sendMessage(yourId, sender, JSON.stringify({'sdp': pc1.localDescription})));
+              .then(() => sendMessage(yourId, target, JSON.stringify({'sdp': pc1.localDescription})));
         }
         else if (msg.sdp.type == "answer"){
             console.log("01c");
@@ -90,10 +91,11 @@ function readMessage(data) {
         }
         else if (msg.sdp.type == "offer"){
             console.log("02b");
+            target = sender;
             pc2.setRemoteDescription(new RTCSessionDescription(msg.sdp))
               .then(() => pc2.createAnswer())
               .then(answer => pc2.setLocalDescription(answer))
-              .then(() => sendMessage(yourId, sender, JSON.stringify({'sdp': pc2.localDescription})));
+              .then(() => sendMessage(yourId, target, JSON.stringify({'sdp': pc2.localDescription})));
         }
         else if (msg.sdp.type == "answer"){
             console.log("02c");
@@ -108,10 +110,11 @@ function readMessage(data) {
         }
         else if (msg.sdp.type == "offer"){
             console.log("12b");
+            target = sender;
             pc1.setRemoteDescription(new RTCSessionDescription(msg.sdp))
               .then(() => pc1.createAnswer())
               .then(answer => pc1.setLocalDescription(answer))
-              .then(() => sendMessage(yourId, sender, JSON.stringify({'sdp': pc1.localDescription})));
+              .then(() => sendMessage(yourId, target, JSON.stringify({'sdp': pc1.localDescription})));
         }
         else if (msg.sdp.type == "answer"){
             console.log("12c");
@@ -126,10 +129,11 @@ function readMessage(data) {
         }
         else if (msg.sdp.type == "offer"){
             console.log("10b");
+            target = sender;
             pc2.setRemoteDescription(new RTCSessionDescription(msg.sdp))
               .then(() => pc2.createAnswer())
               .then(answer => pc2.setLocalDescription(answer))
-              .then(() => sendMessage(yourId, sender, JSON.stringify({'sdp': pc2.localDescription})));
+              .then(() => sendMessage(yourId, target, JSON.stringify({'sdp': pc2.localDescription})));
         }
         else if (msg.sdp.type == "answer"){
             console.log("10c");
@@ -140,18 +144,19 @@ function readMessage(data) {
         console.log("20");
         if (msg.ice != undefined){
             console.log("20a");
-            pc2.addIceCandidate(new RTCIceCandidate(msg.ice));
+            pc1.addIceCandidate(new RTCIceCandidate(msg.ice));
         }
         else if (msg.sdp.type == "offer"){
             console.log("20b");
-            pc2.setRemoteDescription(new RTCSessionDescription(msg.sdp))
-              .then(() => pc2.createAnswer())
-              .then(answer => pc2.setLocalDescription(answer))
-              .then(() => sendMessage(yourId, sender, JSON.stringify({'sdp': pc2.localDescription})));
+            target = sender;
+            pc1.setRemoteDescription(new RTCSessionDescription(msg.sdp))
+              .then(() => pc1.createAnswer())
+              .then(answer => pc1.setLocalDescription(answer))
+              .then(() => sendMessage(yourId, target, JSON.stringify({'sdp': pc1.localDescription})));
         }
         else if (msg.sdp.type == "answer"){
             console.log("20c");
-            pc2.setRemoteDescription(new RTCSessionDescription(msg.sdp));
+            pc1.setRemoteDescription(new RTCSessionDescription(msg.sdp));
         }
     }
     if (target==yourId && target==2 && sender==1) {
@@ -162,10 +167,11 @@ function readMessage(data) {
         }
         else if (msg.sdp.type == "offer"){
             console.log("21b");
+            target = sender;
             pc2.setRemoteDescription(new RTCSessionDescription(msg.sdp))
               .then(() => pc2.createAnswer())
               .then(answer => pc2.setLocalDescription(answer))
-              .then(() => sendMessage(yourId, sender, JSON.stringify({'sdp': pc2.localDescription})));
+              .then(() => sendMessage(yourId, target, JSON.stringify({'sdp': pc2.localDescription})));
         }
         else if (msg.sdp.type == "answer"){
             console.log("21c");
@@ -185,32 +191,34 @@ function showMyFace() {
 
 function showFriendsFace() {
   var sender = yourId;
+  var target = (yourId+1)%3;   //defining target for the first time
   if (yourId==0)
   pc1.createOffer()
     .then(offer => pc1.setLocalDescription(offer) )
-    .then(() => sendMessage(yourId,1, JSON.stringify({'sdp': pc1.localDescription})) );
+    .then(() => sendMessage(yourId,target, JSON.stringify({'sdp': pc1.localDescription})) );
   if(yourId==1)
   pc1.createOffer()
     .then(offer => pc1.setLocalDescription(offer) )
-    .then(() => sendMessage(yourId,2, JSON.stringify({'sdp': pc1.localDescription})) );
+    .then(() => sendMessage(yourId,target, JSON.stringify({'sdp': pc1.localDescription})) );
   if(yourId==2)
     pc1.createOffer()
       .then(offer => pc1.setLocalDescription(offer) )
-      .then(() => sendMessage(yourId,0, JSON.stringify({'sdp': pc1.localDescription})) );
+      .then(() => sendMessage(yourId,target, JSON.stringify({'sdp': pc1.localDescription})) );
 }
 
 function showOtherFriendsFace() {
   var sender = yourId;
+  var target = (yourId+2)%3;   //defining target for the first time
   if (yourId==0)
     pc2.createOffer()
        .then(offer => pc2.setLocalDescription(offer) )
-       .then(() => sendMessage(yourId,2, JSON.stringify({'sdp': pc2.localDescription})) );
+       .then(() => sendMessage(yourId,target, JSON.stringify({'sdp': pc2.localDescription})) );
   if(yourId==1)
     pc2.createOffer()
        .then(offer => pc2.setLocalDescription(offer) )
-       .then(() => sendMessage(yourId,0, JSON.stringify({'sdp': pc2.localDescription})) );
+       .then(() => sendMessage(yourId,target, JSON.stringify({'sdp': pc2.localDescription})) );
   if(yourId==2)
     pc2.createOffer()
        .then(offer => pc2.setLocalDescription(offer) )
-       .then(() => sendMessage(yourId,1, JSON.stringify({'sdp': pc2.localDescription})) );
+       .then(() => sendMessage(yourId,target, JSON.stringify({'sdp': pc2.localDescription})) );
 }
