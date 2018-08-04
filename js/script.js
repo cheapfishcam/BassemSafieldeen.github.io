@@ -15,7 +15,6 @@ var friendsVideo = document.getElementById("friendsVideo");
 var otherfriendsVideo = document.getElementById("otherfriendsVideo");
 var yourId = 1000; //
 
-
 function setID(ID){
   console.log("success " + ID);
   yourId = ID;
