@@ -60,7 +60,7 @@ function sendMessage(senderId, targetId, data) {
 
 function readMessage(data) {
     var msg = JSON.parse(data.val().message);
-    var sender = data.val().sender;
+    if(msg.ice == undefined) var sender = data.val().sender;
     var target = data.val().target;
     if (target==yourId && target==0 && sender==1) {
         console.log("01");
