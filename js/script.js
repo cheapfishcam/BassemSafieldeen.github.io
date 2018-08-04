@@ -14,6 +14,8 @@ var yourVideo = document.getElementById("yourVideo");
 var friendsVideo = document.getElementById("friendsVideo");
 var otherfriendsVideo = document.getElementById("otherfriendsVideo");
 var yourId = 10000; //
+var sender;
+var target;
 
 function setID(ID){
   console.log("success " + ID);
@@ -63,7 +65,7 @@ function sendMessage(senderId, targetId, data) {
 function readMessage(data) {
     var msg = JSON.parse(data.val().message);
     sender = data.val().sender;
-    var target = data.val().target;
+    target = data.val().target;
     if (target==yourId && target==0 && sender==1) {
         console.log("01");
         if (msg.ice != undefined){
@@ -190,8 +192,8 @@ function showMyFace() {
 }
 
 function showFriendsFace() {
-  var sender = yourId;
-  var target = (yourId+1)%3;   //defining target for the first time
+  sender = yourId;
+  target = (yourId+1)%3;   //defining target for the first time
   if (yourId==0)
   pc1.createOffer()
     .then(offer => pc1.setLocalDescription(offer) )
@@ -207,8 +209,8 @@ function showFriendsFace() {
 }
 
 function showOtherFriendsFace() {
-  var sender = yourId;
-  var target = (yourId+2)%3;   //defining target for the first time
+  sender = yourId;
+  target = (yourId+2)%3;   //defining target for the first time
   if (yourId==0)
     pc2.createOffer()
        .then(offer => pc2.setLocalDescription(offer) )
