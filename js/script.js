@@ -16,6 +16,7 @@ var otherfriendsVideo = document.getElementById("otherfriendsVideo");
 var yourId = 10000; //
 var sender;
 var target;
+var initialtarget;
 var initiatorpc1 = 10000;
 var initiatorpc2 = 10000;
 
@@ -52,10 +53,20 @@ pc2.onaddstream = (event => otherfriendsVideo.srcObject = event.stream);*/
 
 
 //0 creates offer . 0 sends ice (sender here is not defined because it first gets defined when readmessage is called.) -> 2 receives offer, creates answer, sends ice.
+if (initiatorpc2 == yourId) {
+pc2.onicecandidate = (event => event.candidate?sendMessage(yourId, initialtarget, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
+pc2.onaddstream = (event => otherfriendsVideo.srcObject = event.stream);
+} else {
 pc2.onicecandidate = (event => event.candidate?sendMessage(yourId, target, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
 pc2.onaddstream = (event => otherfriendsVideo.srcObject = event.stream);
+}
+if (initiatorpc1 == yourId) {
+pc1.onicecandidate = (event => event.candidate?sendMessage(yourId, initialtarget, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
+pc1.onaddstream = (event => friendsVideo.srcObject = event.stream);
+} else {
 pc1.onicecandidate = (event => event.candidate?sendMessage(yourId, target, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
 pc1.onaddstream = (event => friendsVideo.srcObject = event.stream);
+}
 
 
 
@@ -196,36 +207,36 @@ function showMyFace() {
 function showFriendsFace() {
   initiatorpc1 = yourId;
   sender = yourId;
-  target = (yourId+1)%3;   //defining target for the first time
+  initialtarget = (yourId+1)%3;   //defining target for the first time
   if (yourId==0)
   pc1.createOffer()
     .then(offer => pc1.setLocalDescription(offer) )
-    .then(() => sendMessage(yourId,target, JSON.stringify({'sdp': pc1.localDescription})) );
+    .then(() => sendMessage(yourId,initialtarget, JSON.stringify({'sdp': pc1.localDescription})) );
   if(yourId==1)
   pc1.createOffer()
     .then(offer => pc1.setLocalDescription(offer) )
-    .then(() => sendMessage(yourId,target, JSON.stringify({'sdp': pc1.localDescription})) );
+    .then(() => sendMessage(yourId,initialtarget, JSON.stringify({'sdp': pc1.localDescription})) );
   if(yourId==2)
     pc1.createOffer()
       .then(offer => pc1.setLocalDescription(offer) )
-      .then(() => sendMessage(yourId,target, JSON.stringify({'sdp': pc1.localDescription})) );
+      .then(() => sendMessage(yourId,initialtarget, JSON.stringify({'sdp': pc1.localDescription})) );
 }
 
 
 function showOtherFriendsFace() {
   initiatorpc2 = yourId;
   sender = yourId;
-  target = (yourId+2)%3;   //defining target for the first time
+  initialtarget = (yourId+2)%3;   //defining target for the first time
   if (yourId==0)
     pc2.createOffer()
        .then(offer => pc2.setLocalDescription(offer) )
-       .then(() => sendMessage(yourId,target, JSON.stringify({'sdp': pc2.localDescription})) );
+       .then(() => sendMessage(yourId,initialtarget, JSON.stringify({'sdp': pc2.localDescription})) );
   if(yourId==1)
     pc2.createOffer()
        .then(offer => pc2.setLocalDescription(offer) )
-       .then(() => sendMessage(yourId,target, JSON.stringify({'sdp': pc2.localDescription})) );
+       .then(() => sendMessage(yourId,initialtarget, JSON.stringify({'sdp': pc2.localDescription})) );
   if(yourId==2)
     pc2.createOffer()
        .then(offer => pc2.setLocalDescription(offer) )
-       .then(() => sendMessage(yourId,target, JSON.stringify({'sdp': pc2.localDescription})) );
+       .then(() => sendMessage(yourId,initialtarget, JSON.stringify({'sdp': pc2.localDescription})) );
 }
