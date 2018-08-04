@@ -55,28 +55,24 @@ pc2.onaddstream = (event => otherfriendsVideo.srcObject = event.stream);*/
 
 
 
-//0 creates offer . 0 sends ice (sender here is not defined because it first gets defined when readmessage is called.) -> 2 receives offer, creates answer, sends ice.
-if (initiatorpc01 == yourId) {
-pc01.onicecandidate = (event => event.candidate?sendMessage(yourId, initialtarget, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
+pc01.onicecandidate = (event => initiatorpc01==yourId?event.candidate?sendMessage(yourId, initialtarget, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice"):event.candidate?sendMessage(yourId, target, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
+pc02.onicecandidate = (event => initiatorpc02==yourId?event.candidate?sendMessage(yourId, initialtarget, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice"):event.candidate?sendMessage(yourId, target, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
+pc12.onicecandidate = (event => initiatorpc12==yourId?event.candidate?sendMessage(yourId, initialtarget, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice"):event.candidate?sendMessage(yourId, target, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
+
+
+//block to use later
+if (yourId == 0)
+pc01.onaddstream = (event => friendsVideo.srcObject = event.stream);
+if (yourId == 1)
 pc01.onaddstream = (event => otherfriendsVideo.srcObject = event.stream);
-} else {
-pc01.onicecandidate = (event => event.candidate?sendMessage(yourId, target, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
-pc01.onaddstream = (event => otherfriendsVideo.srcObject = event.stream);
-}
-if (initiatorpc02 == yourId) {
-pc02.onicecandidate = (event => event.candidate?sendMessage(yourId, initialtarget, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
+if (yourId == 0)
 pc02.onaddstream = (event => otherfriendsVideo.srcObject = event.stream);
-} else {
-pc02.onicecandidate = (event => event.candidate?sendMessage(yourId, target, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
-pc02.onaddstream = (event => otherfriendsVideo.srcObject = event.stream);
-}
-if (initiatorpc12 == yourId) {
-pc12.onicecandidate = (event => event.candidate?sendMessage(yourId, initialtarget, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
+if (yourId == 2)
+pc02.onaddstream = (event => friendsVideo.srcObject = event.stream);
+if (yourId == 1)
+pc12.onaddstream = (event => friendsVideo.srcObject = event.stream);
+if (yourId == 2)
 pc12.onaddstream = (event => otherfriendsVideo.srcObject = event.stream);
-} else {
-pc12.onicecandidate = (event => event.candidate?sendMessage(yourId, target, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
-pc12.onaddstream = (event => otherfriendsVideo.srcObject = event.stream);
-}
 
 
 
@@ -166,7 +162,7 @@ function readMessage(data) {
             pc01.setRemoteDescription(new RTCSessionDescription(msg.sdp));
         }
     }
-    if (target==yourId && target==2 && sender==0) {   //pc2 should be pc1
+    if (target==yourId && target==2 && sender==0) {
         console.log("20");
         if (msg.ice != undefined){
             console.log("20a");
