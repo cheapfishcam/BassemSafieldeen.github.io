@@ -100,7 +100,7 @@ var pc12 = new RTCPeerConnection(servers);
 var pc01datachannel = pc01.createDataChannel("pc01");
 
 pc01datachannel.onmessage = function (event) {
-  console.log(“I got a data channel message”, event.data);
+  console.log("I got a data channel message", event.data);
 };
 
 pc01datachannel.send("Hello World!");
