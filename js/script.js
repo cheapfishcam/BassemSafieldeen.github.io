@@ -31,12 +31,12 @@ var ball = {
       brake: 0.9, // smaller number stop faster, max 0.99999
 };
 var FPS = 30;
-  /*window.onload = function() {
+  window.onload = function() {
     setInterval(function() {
           animate();
       gameBack();
     }, 1000/FPS);
-  };*/
+  };
   function animate() {
       ball.pos.x += ball.direction.x * ball.speed;
       ball.pos.y += ball.direction.y * ball.speed;
