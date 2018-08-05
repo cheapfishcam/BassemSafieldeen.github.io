@@ -103,7 +103,9 @@ pc01datachannel.onmessage = function (event) {
   console.log("I got a data channel message", event.data);
 };
 
-pc01datachannel.send("Hello World!");
+pc01datachannel.onopen = () => {
+  pc01datachannel.send("Hello World!");
+};
 
 pc01.onicecandidate = (event => initiatorpc01==yourId?(event.candidate?sendMessage(yourId, initialtarget, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice")):(event.candidate?sendMessage(yourId, target, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice")) );
 pc02.onicecandidate = (event => initiatorpc02==yourId?(event.candidate?sendMessage(yourId, initialtarget, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice")):(event.candidate?sendMessage(yourId, target, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice")) );
