@@ -1,3 +1,7 @@
+//To DO: first, make a ball for each user. then, in an RTC connection, along with the voice info, send the position of the ball.
+
+
+
 //Create an account on Firebase, and use the credentials they give you in place of the following
 var config = {
     apiKey: "AIzaSyCymOh_cE-oA2jZo9PeruW1jacINPCxshQ",
@@ -92,6 +96,14 @@ var servers = {'iceServers': [{'urls': 'stun:stun.services.mozilla.com'}, {'urls
 var pc01 = new RTCPeerConnection(servers);
 var pc02 = new RTCPeerConnection(servers);
 var pc12 = new RTCPeerConnection(servers);
+
+var pc01datachannel = pc01.createDataChannel("pc01");
+
+pc01datachannel.onmessage = function (event) {
+  console.log(“I got a data channel message”, event.data);
+};
+
+pc01datachannel.send("Hello World!");
 
 pc01.onicecandidate = (event => initiatorpc01==yourId?(event.candidate?sendMessage(yourId, initialtarget, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice")):(event.candidate?sendMessage(yourId, target, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice")) );
 pc02.onicecandidate = (event => initiatorpc02==yourId?(event.candidate?sendMessage(yourId, initialtarget, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice")):(event.candidate?sendMessage(yourId, target, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice")) );
