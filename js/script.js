@@ -217,6 +217,9 @@ function showMyFace() {
     //.then(stream => pc12.addStream(stream))
     //.then(stream => pc02.addStream(stream))
     //.then(stream => pc01.addStream(stream));
+    showMyFaceAgain(pc01);
+    showMyFaceAgain(pc02);
+    showMyFaceAgain(pc12);
 }
 
 function showMyFaceAgain(PeerConnection) {
