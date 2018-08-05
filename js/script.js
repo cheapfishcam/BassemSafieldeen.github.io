@@ -54,14 +54,13 @@ pc2.onicecandidate = (event => event.candidate?sendMessage(yourId, 1, JSON.strin
 pc2.onaddstream = (event => otherfriendsVideo.srcObject = event.stream);*/
 
 
-
+pc12.onicecandidate = (event => initiatorpc12==yourId?(event.candidate?sendMessage(yourId, initialtarget, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice")):(event.candidate?sendMessage(yourId, target, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice")) );
 pc01.onicecandidate = (event => initiatorpc01==yourId?(event.candidate?sendMessage(yourId, initialtarget, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice")):(event.candidate?sendMessage(yourId, target, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice")) );
 pc02.onicecandidate = (event => initiatorpc02==yourId?(event.candidate?sendMessage(yourId, initialtarget, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice")):(event.candidate?sendMessage(yourId, target, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice")) );
-pc12.onicecandidate = (event => initiatorpc12==yourId?(event.candidate?sendMessage(yourId, initialtarget, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice")):(event.candidate?sendMessage(yourId, target, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice")) );
 
+pc12.onaddstream = (event => yourId==1?friendsVideo.srcObject = event.stream:yourId==2?otherfriendsVideo.srcObject = event.stream:console.log("whatever"));
 pc01.onaddstream = (event => yourId==0?friendsVideo.srcObject = event.stream:yourId==1?otherfriendsVideo.srcObject = event.stream:console.log("whatever"));
 pc02.onaddstream = (event => yourId==2?friendsVideo.srcObject = event.stream:yourId==0?otherfriendsVideo.srcObject = event.stream:console.log("whatever"));
-pc12.onaddstream = (event => yourId==1?friendsVideo.srcObject = event.stream:yourId==2?otherfriendsVideo.srcObject = event.stream:console.log("whatever"));
 
 //block to use later
 /*if (yourId == 0)
