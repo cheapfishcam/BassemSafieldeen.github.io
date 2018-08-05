@@ -208,7 +208,6 @@ function showMyFaceAgain(PeerConnection) {
 }
 
 function showFriendsFace() {
-  pc01datachannel.send("Hello World!");
   sender = yourId;
   initialtarget = (yourId+1)%3;   //defining target for the first time
   if (yourId==0) {
@@ -234,6 +233,7 @@ function showFriendsFace() {
 
 
 function showOtherFriendsFace() {
+  pc01datachannel.send("Hello World!");
   sender = yourId;
   initialtarget = (yourId+2)%3;   //defining target for the first time
   if (yourId==0) {
