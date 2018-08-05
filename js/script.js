@@ -21,7 +21,6 @@ var initiatorpc01;
 var initiatorpc02;
 var initiatorpc12;
 
-
 //-----------------------------------------------------------------
 var canvas = document.getElementById('game');
 var ctx = canvas.getContext('2d');
