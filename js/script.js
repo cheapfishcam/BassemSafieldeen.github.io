@@ -213,9 +213,9 @@ database.on('child_added', readMessage);
 function showMyFace() {
   navigator.mediaDevices.getUserMedia({audio:true, video:true})
     .then(stream => yourVideo.srcObject = stream)
-    .then(stream => pc01.addStream(stream))
+    .then(stream => pc12.addStream(stream))
     .then(stream => pc02.addStream(stream))
-    .then(stream => pc12.addStream(stream));
+    .then(stream => pc01.addStream(stream));
 }
 
 function showFriendsFace() {
