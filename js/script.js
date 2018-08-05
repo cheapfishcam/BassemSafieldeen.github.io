@@ -31,12 +31,12 @@ var ball = {
       brake: 0.9, // smaller number stop faster, max 0.99999
 };
 var FPS = 30;
-  window.onload = function() {
+  /*window.onload = function() {
     setInterval(function() {
           animate();
       gameBack();
     }, 1000/FPS);
-  };
+  };*/
   function animate() {
       ball.pos.x += ball.direction.x * ball.speed;
       ball.pos.y += ball.direction.y * ball.speed;
@@ -93,27 +93,6 @@ var pc01 = new RTCPeerConnection(servers);
 var pc02 = new RTCPeerConnection(servers);
 var pc12 = new RTCPeerConnection(servers);
 
-/*if (yourId==0)  //first connection pc1: 0 <-> 1 and 0 <-> 2
-pc1.onicecandidate = (event => event.candidate?sendMessage(yourId, 1, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
-if (yourId==1)
-pc1.onicecandidate = (event => event.candidate?sendMessage(yourId, 0, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
-if (yourId==2)
-pc1.onicecandidate = (event => event.candidate?sendMessage(yourId, 0, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
-
-pc1.onaddstream = (event => friendsVideo.srcObject = event.stream);
-
-
-/*if (yourId==0)
-pc2.onicecandidate = (event => event.candidate?sendMessage(yourId, 2, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
-if (yourId==1)
-pc2.onicecandidate = (event => event.candidate?sendMessage(yourId, 0, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
-if (yourId==2)
-pc2.onicecandidate = (event => event.candidate?sendMessage(yourId, 1, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
-
-
-pc2.onaddstream = (event => otherfriendsVideo.srcObject = event.stream);*/
-
-
 pc01.onicecandidate = (event => initiatorpc01==yourId?(event.candidate?sendMessage(yourId, initialtarget, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice")):(event.candidate?sendMessage(yourId, target, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice")) );
 pc02.onicecandidate = (event => initiatorpc02==yourId?(event.candidate?sendMessage(yourId, initialtarget, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice")):(event.candidate?sendMessage(yourId, target, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice")) );
 pc12.onicecandidate = (event => initiatorpc12==yourId?(event.candidate?sendMessage(yourId, initialtarget, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice")):(event.candidate?sendMessage(yourId, target, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice")) );
@@ -122,25 +101,6 @@ pc12.onicecandidate = (event => initiatorpc12==yourId?(event.candidate?sendMessa
 pc01.onaddstream = (event => yourId==0?friendsVideo.srcObject = event.stream:yourId==1?otherfriendsVideo.srcObject = event.stream:console.log("whatever"));
 pc02.onaddstream = (event => yourId==2?friendsVideo.srcObject = event.stream:yourId==0?otherfriendsVideo.srcObject = event.stream:console.log("whatever"));
 pc12.onaddstream = (event => yourId==1?friendsVideo.srcObject = event.stream:yourId==2?otherfriendsVideo.srcObject = event.stream:console.log("whatever"));
-
-
-//block to use later
-/*if (yourId == 0)
-pc01.onaddstream = (event => friendsVideo.srcObject = event.stream);
-if (yourId == 1)
-pc01.onaddstream = (event => otherfriendsVideo.srcObject = event.stream);
-if (yourId == 0)
-pc02.onaddstream = (event => otherfriendsVideo.srcObject = event.stream);
-if (yourId == 2)
-pc02.onaddstream = (event => friendsVideo.srcObject = event.stream);
-if (yourId == 1)
-pc12.onaddstream = (event => friendsVideo.srcObject = event.stream);
-if (yourId == 2)
-pc12.onaddstream = (event => otherfriendsVideo.srcObject = event.stream);
-*/
-
-
-
 
 function sendMessage(senderId, targetId, data) {
     var msg = database.push({ sender: senderId, target: targetId, message: data });
@@ -209,64 +169,6 @@ function readMessage(data) {
             pc12.setRemoteDescription(new RTCSessionDescription(msg.sdp));
         }
     }
-    /*if (target==yourId && target==1 && sender==0) {
-        console.log("10");
-        if (msg.ice != undefined){
-            console.log("10a");
-            pc01.addIceCandidate(new RTCIceCandidate(msg.ice));
-        }
-        else if (msg.sdp.type == "offer"){
-            console.log("10b");
-            target = sender;
-            pc01.setRemoteDescription(new RTCSessionDescription(msg.sdp))
-              .then(() => pc01.createAnswer())
-              .then(answer => pc01.setLocalDescription(answer))
-              .then(() => sendMessage(yourId, target, JSON.stringify({'sdp': pc01.localDescription})));
-        }
-        else if (msg.sdp.type == "answer"){
-            console.log("10c");
-            pc01.setRemoteDescription(new RTCSessionDescription(msg.sdp));
-        }
-    }
-
-    if (target==yourId && target==2 && sender==0) {
-        console.log("20");
-        if (msg.ice != undefined){
-            console.log("20a");
-            pc02.addIceCandidate(new RTCIceCandidate(msg.ice));
-        }
-        else if (msg.sdp.type == "offer"){
-            console.log("20b");
-            target = sender;
-            pc02.setRemoteDescription(new RTCSessionDescription(msg.sdp))
-              .then(() => pc02.createAnswer())
-              .then(answer => pc02.setLocalDescription(answer))
-              .then(() => sendMessage(yourId, target, JSON.stringify({'sdp': pc02.localDescription})));
-        }
-        else if (msg.sdp.type == "answer"){
-            console.log("20c");
-            pc02.setRemoteDescription(new RTCSessionDescription(msg.sdp));
-        }
-    }
-    if (target==yourId && target==2 && sender==1) {
-        console.log("21");
-        if (msg.ice != undefined){
-            console.log("21a");
-            pc12.addIceCandidate(new RTCIceCandidate(msg.ice));
-        }
-        else if (msg.sdp.type == "offer"){
-            console.log("21b");
-            target = sender;
-            pc12.setRemoteDescription(new RTCSessionDescription(msg.sdp))
-              .then(() => pc12.createAnswer())
-              .then(answer => pc12.setLocalDescription(answer))
-              .then(() => sendMessage(yourId, target, JSON.stringify({'sdp': pc12.localDescription})));
-        }
-        else if (msg.sdp.type == "answer"){
-            console.log("21c");
-            pc12.setRemoteDescription(new RTCSessionDescription(msg.sdp));
-        }
-    }*/
 };
 
 database.on('child_added', readMessage);
@@ -280,6 +182,10 @@ function showMyFace() {
     showMyFaceAgain(pc01);
     showMyFaceAgain(pc02);
     showMyFaceAgain(pc12);
+    setInterval(function() {
+          animate();
+      gameBack();
+    }, 1000/FPS);
 }
 
 function showMyFaceAgain(PeerConnection) {
