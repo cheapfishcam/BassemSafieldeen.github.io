@@ -42,8 +42,12 @@ var FPS = 30;
     }, 1000/FPS);
   };*/
   function animate() {
+	  if (ball.pos.x > 0  && ball.pos.x < 800 || ball.pos.x <0 && ball.direction.x >0  ||  ball.pos.x > 800 && ball.direction.x <0  ) {
       ball.pos.x += ball.direction.x * ball.speed;
-      ball.pos.y += ball.direction.y * ball.speed;
+	  }
+	  if(ball.pos.y> 0  && ball.pos.y< 600 || ball.pos.y <0 && ball.direction.y >0  ||  ball.pos.y > 800 && ball.direction.y <0 ){
+	  ball.pos.y += ball.direction.y * ball.speed;
+	  }
       ball.direction.x *= ball.brake;
       ball.direction.y *= ball.brake;
   }
