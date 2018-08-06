@@ -49,8 +49,8 @@ var FPS = 30;
   }
   // background code
   function gameBack() {
-    drawRect(0,0,canvas.width,canvas.height, 'Black');
-    colorCircle(ball.pos.x,ball.pos.y,10, 'white');
+    drawRect(0,0,canvas.width,canvas.height, 'white');
+    colorCircle(ball.pos.x,ball.pos.y,10, 'Black');
   }
   // Rectangle Code
   function drawRect(leftX,topY,width,height, drawColor) {
