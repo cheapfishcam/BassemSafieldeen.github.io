@@ -45,7 +45,7 @@ var FPS = 30;
 	  if (ball.pos.x > 0  && ball.pos.x < 800 || ball.pos.x <0 && ball.direction.x >0  ||  ball.pos.x > 800 && ball.direction.x <0  ) {
       ball.pos.x += ball.direction.x * ball.speed;
 	  }
-	  if(ball.pos.y> 0  && ball.pos.y< 600 || ball.pos.y <0 && ball.direction.y >0  ||  ball.pos.y > 800 && ball.direction.y <0 ){
+	  if(ball.pos.y> 0  && ball.pos.y< 600 || ball.pos.y <0 && ball.direction.y >0  ||  ball.pos.y > 600 && ball.direction.y <0 ){
 	  ball.pos.y += ball.direction.y * ball.speed;
 	  }
       ball.direction.x *= ball.brake;
