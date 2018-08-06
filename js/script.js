@@ -97,15 +97,31 @@ var pc01 = new RTCPeerConnection(servers);
 var pc02 = new RTCPeerConnection(servers);
 var pc12 = new RTCPeerConnection(servers);
 
-var pc01datachannel = pc01.createDataChannel("pc01");
 
-pc01datachannel.onmessage = function (event) {
-  console.log("I got a data channel message", event.data);
+var sendchannel;
+var receivechannel;
+function startnow() {
+if (yourId == 0){
+sendchannel = pc01.createDataChannel('dataChannel', {
+  // This configuration basically makes it act like a UDP connection, which is
+  // useful for games. You can specify different options to a get more TCP-like
+  // connection instead.
+  maxRetransmits: 0,
+  reliable: false
+});
+sendchannel.onopen = () => sendchannel.send("hello world, god damn it!");
+sendchannel.onmessage = () => console.log("got message at 0");
+console.log(sendchannel.readyState);
+}
+
+if(yourId == 1){
+pc01.ondatachannel = function (event) {
+  receivechannel = event.channel;
+  receivechannel.onmessage = () => console.log("got message at 1");
+  console.log(receivechannel.readyState);
 };
 
-pc01datachannel.onopen = () => {
-  pc01datachannel.send("Hello World!");
-};
+}}
 
 pc01.onicecandidate = (event => initiatorpc01==yourId?(event.candidate?sendMessage(yourId, initialtarget, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice")):(event.candidate?sendMessage(yourId, target, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice")) );
 pc02.onicecandidate = (event => initiatorpc02==yourId?(event.candidate?sendMessage(yourId, initialtarget, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice")):(event.candidate?sendMessage(yourId, target, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice")) );
@@ -233,7 +249,31 @@ function showFriendsFace() {
 
 
 function showOtherFriendsFace() {
-  pc01datachannel.send("Hello World!");
+
+  /*if (yourId == 0)
+  pc01dc = pc01.createDataChannel('dataChannel', {
+    // This configuration basically makes it act like a UDP connection, which is
+    // useful for games. You can specify different options to a get more TCP-like
+    // connection instead.
+    maxRetransmits: 0,
+    reliable: false
+  });
+
+
+
+  //pc01dc.onopen = () => pc01dc.send("Hello World!");
+
+  if(yourId == 1)
+  pc01dc.onmessage = () => console.log("got message here");
+
+  if (yourId == 1)
+  console.log(pc01dc.readyState);
+
+  //if (yourId == 0)
+  //pc01dc.send("Hello World!");*/
+
+
+
   sender = yourId;
   initialtarget = (yourId+2)%3;   //defining target for the first time
   if (yourId==0) {
