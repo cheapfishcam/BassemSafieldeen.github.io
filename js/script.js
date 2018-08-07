@@ -25,6 +25,11 @@ var initiatorpc01;
 var initiatorpc02;
 var initiatorpc12;
 
+
+
+
+
+
 //-----------------------------------------------------------------
 var canvas = document.getElementById('game');
 var ctx = canvas.getContext('2d');
@@ -42,10 +47,10 @@ var FPS = 30;
     }, 1000/FPS);
   };*/
   function animate() {
-	  if (ball.pos.x > 0  && ball.pos.x < 800 || ball.pos.x <0 && ball.direction.x >0  ||  ball.pos.x > 800 && ball.direction.x <0  ) {
+	  if (ball.pos.x > 0  && ball.pos.x < 1999 || ball.pos.x <0 && ball.direction.x >0  ||  ball.pos.x > 800 && ball.direction.x <0  ) {
       ball.pos.x += ball.direction.x * ball.speed;
 	  }
-	  if(ball.pos.y> 0  && ball.pos.y< 600 || ball.pos.y <0 && ball.direction.y >0  ||  ball.pos.y > 600 && ball.direction.y <0 ){
+	  if(ball.pos.y> 0  && ball.pos.y< 1999 || ball.pos.y <0 && ball.direction.y >0  ||  ball.pos.y > 600 && ball.direction.y <0 ){
 	  ball.pos.y += ball.direction.y * ball.speed;
 	  }
       ball.direction.x *= ball.brake;
@@ -53,7 +58,7 @@ var FPS = 30;
   }
   // background code
   function gameBack() {
-    drawRect(0,0,canvas.width,canvas.height, 'white');
+    drawRect(0,0,canvas.width,canvas.height, 'Pink');
     colorCircle(ball.pos.x,ball.pos.y,10, 'Black');
   }
   // Rectangle Code
@@ -208,7 +213,7 @@ function readMessage(data) {
 database.on('child_added', readMessage);
 
 function showMyFace() {
-  navigator.mediaDevices.getUserMedia({audio:true, video:true})
+  navigator.mediaDevices.getUserMedia({audio:true, video:false})
     .then(stream => yourVideo.srcObject = stream);
     //.then(stream => pc12.addStream(stream))
     //.then(stream => pc02.addStream(stream))
@@ -223,7 +228,7 @@ function showMyFace() {
 }
 
 function showMyFaceAgain(PeerConnection) {
-  navigator.mediaDevices.getUserMedia({audio:true, video:true})
+  navigator.mediaDevices.getUserMedia({audio:true, video:false})
   .then(stream => PeerConnection.addStream(stream));
 }
 
@@ -251,6 +256,15 @@ function showFriendsFace() {
 }
 
 
+//disable scroll bar moving when arrow key press down
+
+document.onkeydown = KD;
+       function KD(e) {
+         event.returnValue = false;
+       }
+	   
+
+
 
 function showOtherFriendsFace() {
 
@@ -262,6 +276,8 @@ function showOtherFriendsFace() {
     maxRetransmits: 0,
     reliable: false
   });
+  
+  
 
 
 
@@ -299,3 +315,4 @@ function showOtherFriendsFace() {
         .then(() => sendMessage(yourId,initialtarget, JSON.stringify({'sdp': pc12.localDescription})) );
   }
 }
+
