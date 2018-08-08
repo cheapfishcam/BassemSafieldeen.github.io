@@ -68,6 +68,11 @@ var ball2 = {
      handleDataChannelOpen();
      //console.log("flag flipped to 1");
    }
+
+   //var vol1 = 1;
+   //var vol2 = 1;
+   document.getElementById("friendsVideo").volume=1;
+   //document.getElementById("otherfriendsVideo").volume=vol2;
   }
   // background code
   function gameBack() {
