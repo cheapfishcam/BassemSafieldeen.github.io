@@ -31,7 +31,6 @@ var handleDataChannelOpen;
 
 var flag = 0;
 
-
 //-----------------------------------------------------------------
 var canvas = document.getElementById('game');
 var ctx = canvas.getContext('2d');
@@ -248,7 +247,7 @@ function showFriendsFace() {
 }
 
 
-//disable scroll bar moving when arrow key press down
+//disable scroll bar moving when arrow key is pressed down
 
 document.onkeydown = KD;
        function KD(e) {
