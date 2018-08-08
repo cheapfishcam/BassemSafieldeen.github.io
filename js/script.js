@@ -476,7 +476,7 @@ var handleDataChannelMessage = function(event) {
 
 // This is called when the WebRTC sending data channel is offically 'open'
 handleDataChannelOpen = function() {
-  //console.log('Data channel created!');
+  console.log('Data channel created!');
   //dataChannel.send('Hello! I am ' + id);
   flag = 1;
   dataChannel.send(ball.pos.x + ":" + ball.pos.y + ";");
