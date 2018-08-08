@@ -204,7 +204,7 @@ function readMessage(data) {
 database.on('child_added', readMessage);
 
 function showMyFace() {
-  navigator.mediaDevices.getUserMedia({audio:true, video:false})
+  navigator.mediaDevices.getUserMedia({audio:true, video:true})
     .then(stream => yourVideo.srcObject = stream);
     //.then(stream => pc12.addStream(stream))
     //.then(stream => pc02.addStream(stream))
@@ -219,7 +219,7 @@ function showMyFace() {
 }
 
 function showMyFaceAgain(PeerConnection) {
-  navigator.mediaDevices.getUserMedia({audio:true, video:false})
+  navigator.mediaDevices.getUserMedia({audio:true, video:true})
   .then(stream => PeerConnection.addStream(stream));
 }
 
@@ -249,10 +249,10 @@ function showFriendsFace() {
 
 //disable scroll bar moving when arrow key is pressed down
 
-document.onkeydown = KD;
+/*document.onkeydown = KD;
        function KD(e) {
          event.returnValue = false;
-       }
+       }*/
 
 
 
