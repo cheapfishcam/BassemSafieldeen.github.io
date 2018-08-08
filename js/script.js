@@ -517,14 +517,6 @@ var peerConnection;  // This is our WebRTC connection
 var dataChannel;     // This is our outgoing data channel within WebRTC
 var running = false; // Keep track of our connection state
 
-// Use Google's public servers for STUN
-// STUN is a component of the actual WebRTC connection
-var servers = {
-  iceServers: [ {
-    url : 'stun:stun.l.google.com:19302'
-  } ]
-};
-
 // Generate this browser a unique ID
 // On Firebase peers use this unique ID to address messages to each other
 // after they have found each other in the announcement channel
