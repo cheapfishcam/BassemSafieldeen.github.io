@@ -540,14 +540,6 @@ sharedKey = prompt("Please enter a shared identifier");
 
 // Fill this with the config in your Firebase dashboard
 // You'll find it under "Add Firebase to your web app"
-var config = {
-  apiKey: "AIzaSyCymOh_cE-oA2jZo9PeruW1jacINPCxshQ",
-  authDomain: "testingwebrtc-d087c.firebaseapp.com",
-  databaseURL: "https://testingwebrtc-d087c.firebaseio.com",
-  projectId: "testingwebrtc-d087c",
-  storageBucket: "testingwebrtc-d087c.appspot.com",
-  messagingSenderId: "864357972075"
-};
 
 // Setup database and channel events
 //var fb = firebase.initializeApp(config);
