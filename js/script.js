@@ -476,7 +476,7 @@ var handleDataChannelMessage = function(event) {
 
 // This is called when the WebRTC sending data channel is offically 'open'
 handleDataChannelOpen = function() {
-  console.log('Data channel created!');
+  console.log('Data channel created!' + dataChannel.readyState);
   //dataChannel.send('Hello! I am ' + id);
   flag = 1;
   dataChannel.send(ball.pos.x + ":" + ball.pos.y + ";");
@@ -502,7 +502,7 @@ var connect = function() {
 
 // Function to initiate the WebRTC peerconnection and dataChannel
 var initiateWebRTCState = function() {
-  peerConnection = new webkitRTCPeerConnection(servers);
+  peerConnection = new RTCPeerConnection(servers);
   peerConnection.ondatachannel = handleDataChannel;
   dataChannel = peerConnection.createDataChannel('myDataChannel');
   dataChannel.onmessage = handleDataChannelMessage;
