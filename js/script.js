@@ -71,8 +71,8 @@ var ball2 = {
 
    //var vol1 = 1;
    //var vol2 = 1;
-   document.getElementById("friendsVideo").volume=1/Math.max(1, Math.sqrt(Math.pow((ball.pos.x - ball2.pos.x),2) + Math.pow((ball.pos.y - ball2.pos.y),2)));
-   document.getElementById("otherfriendsVideo").volume=1/Math.max(1, Math.sqrt(Math.pow((ball.pos.x - ball2.pos.x),2) + Math.pow((ball.pos.y - ball2.pos.y),2)));
+   document.getElementById("friendsVideo").volume=1/Math.max(1, 0.3 * Math.sqrt(Math.pow((ball.pos.x - ball2.pos.x),2) + Math.pow((ball.pos.y - ball2.pos.y),2)));
+   document.getElementById("otherfriendsVideo").volume=1/Math.max(1, 0.3 * Math.sqrt(Math.pow((ball.pos.x - ball2.pos.x),2) + Math.pow((ball.pos.y - ball2.pos.y),2)));
    //document.getElementById("otherfriendsVideo").volume=vol2;
   }
   // background code
